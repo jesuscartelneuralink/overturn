@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  type ConversationSnapshot,
   contextFrom,
   createDraftDetector,
   DEFAULT_SETTINGS,
@@ -11,7 +12,6 @@ import {
   settingsFromQuery,
   statusLine,
   stripHtml,
-  type ConversationSnapshot,
 } from "./capture";
 
 const draftText =
@@ -73,7 +73,9 @@ describe("settings", () => {
   });
 
   it("settingsFromQuery reads the plugin URL search string", () => {
-    const s = settingsFromQuery("?agent=claims-reply&require_reason=false&overturn_base_url=https://ov.internal/");
+    const s = settingsFromQuery(
+      "?agent=claims-reply&require_reason=false&overturn_base_url=https://ov.internal/",
+    );
     expect(s.agent).toBe("claims-reply");
     expect(s.requireReason).toBe(false);
     expect(s.baseUrl).toBe("https://ov.internal");

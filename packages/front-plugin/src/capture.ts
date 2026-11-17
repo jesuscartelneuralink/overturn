@@ -350,9 +350,7 @@ export function observeSend(input: {
       messageId: newOutbound.id,
     };
   }
-  const newComment = [...input.comments]
-    .reverse()
-    .find((c) => c.body?.trim() && !input.knownIds.has(c.id));
+  const newComment = [...input.comments].reverse().find((c) => c.body?.trim() && !input.knownIds.has(c.id));
   if (newComment) {
     return {
       sent: { text: newComment.body, type: "internalNote", fields: {} },

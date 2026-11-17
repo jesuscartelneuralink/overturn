@@ -10,10 +10,10 @@ import {
   type FrontMessage,
   inScope,
   observeSend,
+  type PendingSend,
   quickReasons,
   settingsFromQuery,
   statusLine,
-  type PendingSend,
 } from "./capture";
 
 /** Minimal surface of a singleConversation context we use (mocked in tests via capture helpers). */
@@ -28,9 +28,10 @@ interface FrontConversationCtx {
     customFieldAttributes?: ReadonlyArray<{ id: string; name: string; value: unknown }>;
   };
   teammate?: { email?: string; name?: string };
-  fetchDraft: (draftId: string) => Promise<
-    | { id: string; content?: { body: string; type: "html" | "text" }; subject?: string }
-    | undefined
+  fetchDraft: (
+    draftId: string,
+  ) => Promise<
+    { id: string; content?: { body: string; type: "html" | "text" }; subject?: string } | undefined
   >;
   listMessages: () => Promise<{
     results: ReadonlyArray<{
@@ -164,7 +165,11 @@ function main(): void {
   let busy = false;
 
   for (const q of quickReasons(settings)) {
-    const b = el("button", { type: "button", class: "chip", "data-code": q.code }, q.label) as HTMLButtonElement;
+    const b = el(
+      "button",
+      { type: "button", class: "chip", "data-code": q.code },
+      q.label,
+    ) as HTMLButtonElement;
     b.addEventListener("click", () => {
       reasonCode = reasonCode === q.code ? null : q.code;
       for (const c of chips) c.classList.toggle("on", c.dataset.code === reasonCode);
