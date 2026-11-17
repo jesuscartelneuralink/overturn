@@ -1,0 +1,9 @@
+{
+  "name": "Overturn",
+  "description": "QA for AI-drafted replies in Front: record the draft, what was sent, and why it changed.",
+  "version": "0.1.0",
+  "entry": "index.html",
+  "settings": {
+    "notes": "Configure via the plugin URL query string: overturn_api_key (or use Front relayHttp with a server-side key), agent, reason_pack, require_reason, decision_fields, scope_tag, min_draft_chars, overturn_base_url."
+  }
+}
